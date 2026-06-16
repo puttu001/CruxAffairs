@@ -1,0 +1,41 @@
+.main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1.25rem;
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #6366f1;
+  letter-spacing: -0.02em;
+}
+
+.date {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.error,
+.empty {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+  line-height: 1.7;
+}
+
+.error {
+  color: #ef4444;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}

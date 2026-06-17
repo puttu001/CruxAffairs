@@ -12,6 +12,7 @@ class ProcessedArticle(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     article_id = Column(UUID(as_uuid=True), ForeignKey("articles.id"))
     category = Column(Text)
+    sub_category = Column(Text)
     relevance_score = Column(Integer)
     summary = Column(JSONB)
     keywords = Column(JSONB)

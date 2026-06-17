@@ -4,17 +4,19 @@ from fastapi.responses import JSONResponse
 
 from database.session import test_connection
 from modules.current_affairs.routes import router as current_affairs_router
+from modules.news.routes import router as ingest_router
 
 app = FastAPI(title="CruxAffairs Backend API")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
 app.include_router(current_affairs_router)
+app.include_router(ingest_router)
 
 
 @app.get("/health")

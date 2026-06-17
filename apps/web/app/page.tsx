@@ -1,46 +1,60 @@
-import { fetchCurrentAffairs, groupByCategory } from "@/lib/api";
-import CategorySection from "@/components/CategorySection";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { Flame } from "lucide-react";
+import { fetchTodayAffairs } from "@/lib/api";
+import ArticleCard from "@/components/ArticleCard";
+import QuickCategories from "@/components/QuickCategories";
+import FeatureCards from "@/components/FeatureCards";
+import FooterBadges from "@/components/FooterBadges";
 
 export default async function HomePage() {
-  let grouped: Record<string, import("@/lib/api").CurrentAffairItem[]> = {};
-  let error: string | null = null;
-
+  let articles: Awaited<ReturnType<typeof fetchTodayAffairs>> = [];
   try {
-    const items = await fetchCurrentAffairs();
-    grouped = groupByCategory(items);
+    articles = await fetchTodayAffairs();
   } catch {
-    error = "Could not connect to the API. Make sure the backend is running on port 8000.";
+    /* API not reachable — show empty state */
   }
 
-  const today = new Date().toLocaleDateString("en-IN", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const top3 = articles.slice(0, 3);
 
   return (
-    <main className={styles.main}>
-      <header className={styles.header}>
-        <h1 className={styles.logo}>CruxAffairs</h1>
-        <p className={styles.date}>Today's Current Affairs · {today}</p>
-      </header>
+    <>
+      {/* Search bar (desktop) */}
+      <Link href="/search" className="search-bar" style={{ display: "none" }}>
+        <span style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>Search Current Affairs...</span>
+      </Link>
 
-      {error ? (
-        <p className={styles.error}>{error}</p>
-      ) : Object.keys(grouped).length === 0 ? (
-        <p className={styles.empty}>
-          No articles yet. Run <code>python fetch_pib.py</code> then{" "}
-          <code>python process_articles.py</code> first.
-        </p>
-      ) : (
-        <div className={styles.content}>
-          {Object.entries(grouped).map(([category, items]) => (
-            <CategorySection key={category} category={category} items={items} />
+      {/* Today's Top */}
+      <div className="section-header">
+        <h2 className="section-title">
+          <Flame size={20} style={{ color: "var(--accent-orange)" }} />
+          Today&apos;s Top Current Affairs
+        </h2>
+        <Link href="/today" className="section-link">View All</Link>
+      </div>
+
+      {top3.length > 0 ? (
+        <div className="card-grid card-grid-horizontal" style={{ marginBottom: "2rem" }}>
+          {top3.map((item, i) => (
+            <ArticleCard key={i} item={item} rank={i + 1} showSummary />
           ))}
         </div>
+      ) : (
+        <div className="empty-state" style={{ marginBottom: "2rem" }}>
+          <p>No articles yet for today. Run the ingestion pipeline first.</p>
+        </div>
       )}
-    </main>
+
+      {/* Quick Categories */}
+      <div className="section-header">
+        <h2 className="section-title">Quick Categories</h2>
+      </div>
+      <QuickCategories />
+
+      {/* Feature Cards (static) */}
+      <FeatureCards />
+
+      {/* Footer */}
+      <FooterBadges />
+    </>
   );
 }

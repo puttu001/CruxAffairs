@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 class CurrentAffairItem(BaseModel):
     category: str
+    sub_category: str
     title: str
     summary: list[str]
     keywords: list[str]

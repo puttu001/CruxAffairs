@@ -26,6 +26,7 @@ def save_processed_article(
     row = ProcessedArticle(
         article_id=article_id,
         category=result.category,
+        sub_category=result.sub_category,
         relevance_score=result.relevance_score,
         summary=result.summary,
         keywords=result.keywords,

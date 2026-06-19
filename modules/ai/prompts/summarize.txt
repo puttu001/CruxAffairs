@@ -12,7 +12,18 @@ Given a government press release or news article, extract the following and retu
     "<bullet point 2>",
     "..."
   ],
-  "keywords": ["<keyword1>", "<keyword2>", "<keyword3>", "<keyword4>", "<keyword5>"]
+  "keywords": ["<keyword1>", "<keyword2>", "<keyword3>", "<keyword4>", "<keyword5>"],
+  "additional_info": [
+    {
+      "subject": "<key entity/organisation/scheme mentioned in the news>",
+      "facts": [
+        "<fact 1 — establishment date, founding, origin>",
+        "<fact 2 — headquarters, location>",
+        "<fact 3 — key function, mandate, purpose>",
+        "<fact 4 — any other exam-relevant static fact>"
+      ]
+    }
+  ]
 }
 
 category must be one of:
@@ -22,10 +33,11 @@ sub_category must be one of:
   Banking Awareness, RBI Circulars, Government Schemes, Reports & Indices, Appointments, Awards, Sports, International Organizations, Economy, Environment, Science & Tech, Bills & Acts, Committees, Summits & Conferences, Defence
 
 Rules:
-- short_title = a catchy, newspaper-style headline of exactly 5-6 words (e.g. "RBI Keeps Repo Rate Unchanged", "New Delimitation Bill Introduced")
+- short_title = a catchy, newspaper-style headline of exactly 5-6 words
 - category = broad UPSC subject area
 - sub_category = specific topic for focused study
-- summary = 3-5 bullet points, each one crisp sentence. Include ONLY facts that matter for exam preparation: key decisions, numbers, names, dates, schemes, Acts, organisations involved. Skip filler, background context, and generic statements. Every bullet should teach the reader something they could be tested on.
+- summary = 3-5 bullet points, each one crisp sentence. Include ONLY facts that matter for exam preparation: key decisions, numbers, names, dates, schemes, Acts, organisations involved. Skip filler and generic statements.
 - keywords must be proper nouns, schemes, organisations, or technical terms only
 - relevance_score: 8-10 = high exam importance, 4-7 = moderate, 1-3 = low
+- additional_info = 1-2 key entities/organisations/schemes from the news with 3-5 static facts each. Focus on: when established, by whom, headquarter, parent ministry, key mandate, and any exam-favourite facts (e.g. first chairman, founding Act). These are background facts students get tested on — not from the news itself but about the subjects IN the news.
 - Return ONLY the JSON object — no explanation, no markdown fences

@@ -1,5 +1,8 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Bookmark } from "lucide-react";
+import { Bookmark, BookmarkCheck } from "lucide-react";
 import type { CurrentAffairItem } from "@/lib/api";
 import { getImportanceLabel, getReadTime } from "@/lib/api";
 
@@ -9,11 +12,41 @@ interface Props {
   showSummary?: boolean;
 }
 
+function getSavedNews(): CurrentAffairItem[] {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(localStorage.getItem("saved-news") || "[]");
+  } catch { return []; }
+}
+
+function isNewsSaved(id: string): boolean {
+  return getSavedNews().some((n) => n.id === id);
+}
+
 export default function ArticleCard({ item, rank, showSummary = false }: Props) {
   const importance = getImportanceLabel(item.relevance_score);
   const importanceClass =
     importance === "High" ? "tag-high" : importance === "Medium" ? "tag-medium" : "tag-low";
   const readTime = getReadTime(item.summary);
+
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    setSaved(isNewsSaved(item.id));
+  }, [item.id]);
+
+  function toggleBookmark(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    let list = getSavedNews();
+    if (saved) {
+      list = list.filter((n) => n.id !== item.id);
+    } else {
+      list.push(item);
+    }
+    localStorage.setItem("saved-news", JSON.stringify(list));
+    setSaved(!saved);
+  }
 
   return (
     <Link href={`/article/${item.id}`} className="article-card">
@@ -37,8 +70,12 @@ export default function ArticleCard({ item, rank, showSummary = false }: Props) 
             <span className="article-meta-left">
               {readTime} min read &middot; {item.source}
             </span>
-            <button className="bookmark-btn" aria-label="Bookmark" onClick={(e) => e.preventDefault()}>
-              <Bookmark size={16} />
+            <button
+              className={`bookmark-btn ${saved ? "bookmark-active" : ""}`}
+              aria-label="Bookmark"
+              onClick={toggleBookmark}
+            >
+              {saved ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
             </button>
           </div>
         </div>

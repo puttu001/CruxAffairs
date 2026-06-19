@@ -50,8 +50,10 @@ def get_current_affairs(
                 sub_category=pa.sub_category or "",
                 short_title=pa.short_title or article.title[:50],
                 title=article.title,
+                url=article.url or "",
                 summary=pa.summary,
                 keywords=pa.keywords,
+                additional_info=pa.additional_info or [],
                 relevance_score=pa.relevance_score,
                 source=article.source,
             )
@@ -76,8 +78,10 @@ def get_article_by_id(db: Session, article_id: str) -> CurrentAffairItem | None:
         sub_category=pa.sub_category or "",
         short_title=pa.short_title or article.title[:50],
         title=article.title,
+        url=article.url or "",
         summary=pa.summary,
         keywords=pa.keywords,
+        additional_info=pa.additional_info or [],
         relevance_score=pa.relevance_score,
         source=article.source,
     )
@@ -113,8 +117,10 @@ def search_current_affairs(db: Session, query: str) -> list[CurrentAffairItem]:
                 sub_category=pa.sub_category or "",
                 short_title=pa.short_title or article.title[:50],
                 title=article.title,
+                url=article.url or "",
                 summary=pa.summary,
                 keywords=pa.keywords,
+                additional_info=pa.additional_info or [],
                 relevance_score=pa.relevance_score,
                 source=article.source,
             )

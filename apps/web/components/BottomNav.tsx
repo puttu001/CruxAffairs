@@ -7,8 +7,8 @@ import { Home, Archive, PenSquare, RotateCcw, User } from "lucide-react";
 const ITEMS = [
   { label: "Home", href: "/", icon: Home },
   { label: "Archives", href: "/archives", icon: Archive },
-  { label: "Quiz", href: "#", icon: PenSquare, disabled: true },
-  { label: "Revision", href: "#", icon: RotateCcw, disabled: true },
+  { label: "Quiz", href: "/quiz", icon: PenSquare },
+  { label: "Revision", href: "/revision", icon: RotateCcw },
   { label: "Profile", href: "#", icon: User, disabled: true },
 ];
 

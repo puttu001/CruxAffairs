@@ -17,4 +17,5 @@ class ProcessedArticle(Base):
     relevance_score = Column(Integer)
     summary = Column(JSONB)
     keywords = Column(JSONB)
+    additional_info = Column(JSONB)
     created_at = Column(TIMESTAMP, server_default=func.now())

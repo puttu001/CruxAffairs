@@ -31,6 +31,7 @@ def save_processed_article(
         relevance_score=result.relevance_score,
         summary=result.summary,
         keywords=result.keywords,
+        additional_info=[item.model_dump() for item in result.additional_info],
     )
     db.add(row)
     db.commit()

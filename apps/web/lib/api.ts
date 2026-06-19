@@ -1,13 +1,20 @@
 const API_BASE = "http://localhost:8000";
 
+export interface AdditionalInfoItem {
+  subject: string;
+  facts: string[];
+}
+
 export interface CurrentAffairItem {
   id: string;
   category: string;
   sub_category: string;
   short_title: string;
   title: string;
+  url: string;
   summary: string[];
   keywords: string[];
+  additional_info: AdditionalInfoItem[];
   relevance_score: number;
   source: string;
 }
@@ -43,6 +50,26 @@ export function fetchArticleById(id: string) {
 
 export function searchAffairs(q: string) {
   return apiFetch<CurrentAffairItem[]>(`/current-affairs/search?q=${encodeURIComponent(q)}`);
+}
+
+// Quiz types
+export interface QuizQuestion {
+  id: number;
+  question: string;
+  options: string[];
+  correct: number;
+  explanation: string;
+  source_title: string;
+}
+
+export interface DailyQuiz {
+  date: string;
+  total_questions: number;
+  questions: QuizQuestion[];
+}
+
+export function fetchDailyQuiz() {
+  return apiFetch<DailyQuiz>("/quiz/daily");
 }
 
 export function getImportanceLabel(score: number): "High" | "Medium" | "Low" {

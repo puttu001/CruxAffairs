@@ -18,8 +18,8 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Search bar (desktop) */}
-      <Link href="/search" className="search-bar" style={{ display: "none" }}>
+      {/* Search bar */}
+      <Link href="/search" className="search-bar">
         <span style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>Search Current Affairs...</span>
       </Link>
 
@@ -33,13 +33,13 @@ export default async function HomePage() {
       </div>
 
       {top3.length > 0 ? (
-        <div className="card-grid card-grid-horizontal" style={{ marginBottom: "2rem" }}>
+        <div className="card-grid card-grid-horizontal" style={{ marginBottom: "1rem" }}>
           {top3.map((item, i) => (
-            <ArticleCard key={i} item={item} rank={i + 1} showSummary />
+            <ArticleCard key={i} item={item} rank={i + 1} />
           ))}
         </div>
       ) : (
-        <div className="empty-state" style={{ marginBottom: "2rem" }}>
+        <div className="empty-state" style={{ marginBottom: "1rem" }}>
           <p>No articles yet for today. Run the ingestion pipeline first.</p>
         </div>
       )}

@@ -5,7 +5,8 @@ from sqlalchemy.orm import Session
 
 from database.session import get_db
 from modules.current_affairs.schemas import CurrentAffairItem
-from modules.current_affairs.service import get_current_affairs, search_current_affairs
+from fastapi import HTTPException
+from modules.current_affairs.service import get_current_affairs, get_article_by_id, search_current_affairs
 
 router = APIRouter(prefix="/current-affairs", tags=["Current Affairs"])
 
@@ -30,6 +31,15 @@ def today_current_affairs(
 ):
     """Shortcut: returns only today's current affairs."""
     return get_current_affairs(db, target_date=date.today(), source=source, category=category, sub_category=sub_category)
+
+
+@router.get("/detail/{article_id}", response_model=CurrentAffairItem)
+def article_detail(article_id: str, db: Session = Depends(get_db)):
+    """Fetch a single article by ID for the detail page."""
+    item = get_article_by_id(db, article_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Article not found")
+    return item
 
 
 @router.get("/search", response_model=list[CurrentAffairItem])

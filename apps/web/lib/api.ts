@@ -1,8 +1,10 @@
 const API_BASE = "http://localhost:8000";
 
 export interface CurrentAffairItem {
+  id: string;
   category: string;
   sub_category: string;
+  short_title: string;
   title: string;
   summary: string[];
   keywords: string[];
@@ -33,6 +35,10 @@ export function fetchAllAffairs(params?: {
   if (params?.sub_category) qs.set("sub_category", params.sub_category);
   const query = qs.toString();
   return apiFetch<CurrentAffairItem[]>(`/current-affairs/${query ? `?${query}` : ""}`);
+}
+
+export function fetchArticleById(id: string) {
+  return apiFetch<CurrentAffairItem>(`/current-affairs/detail/${id}`);
 }
 
 export function searchAffairs(q: string) {

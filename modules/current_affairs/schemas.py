@@ -2,8 +2,10 @@ from pydantic import BaseModel
 
 
 class CurrentAffairItem(BaseModel):
+    id: str
     category: str
     sub_category: str
+    short_title: str
     title: str
     summary: list[str]
     keywords: list[str]

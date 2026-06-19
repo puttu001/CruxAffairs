@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { Search, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 export default function MobileHeader() {
@@ -10,9 +9,9 @@ export default function MobileHeader() {
       <span className="mobile-header-logo">CruxAffairs</span>
       <div className="mobile-header-actions">
         <ThemeToggle />
-        <Link href="/search">
-          <Search size={20} style={{ color: "var(--text-secondary)" }} />
-        </Link>
+        <button style={{ color: "var(--text-secondary)", opacity: 0.4 }} aria-label="Notifications">
+          <Bell size={20} />
+        </button>
       </div>
     </header>
   );

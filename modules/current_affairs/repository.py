@@ -25,6 +25,7 @@ def save_processed_article(
     """Insert one row into processed_articles from the AI result."""
     row = ProcessedArticle(
         article_id=article_id,
+        short_title=result.short_title,
         category=result.category,
         sub_category=result.sub_category,
         relevance_score=result.relevance_score,

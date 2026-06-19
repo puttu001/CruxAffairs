@@ -45,8 +45,10 @@ def get_current_affairs(
     for pa, article in rows:
         result.append(
             CurrentAffairItem(
+                id=str(article.id),
                 category=pa.category,
                 sub_category=pa.sub_category or "",
+                short_title=pa.short_title or article.title[:50],
                 title=article.title,
                 summary=pa.summary,
                 keywords=pa.keywords,
@@ -55,6 +57,30 @@ def get_current_affairs(
             )
         )
     return result
+
+
+def get_article_by_id(db: Session, article_id: str) -> CurrentAffairItem | None:
+    """Fetch a single article by its ID."""
+    stmt = (
+        select(ProcessedArticle, Article)
+        .join(Article, ProcessedArticle.article_id == Article.id)
+        .where(cast(Article.id, String) == article_id)
+    )
+    row = db.execute(stmt).first()
+    if not row:
+        return None
+    pa, article = row
+    return CurrentAffairItem(
+        id=str(article.id),
+        category=pa.category,
+        sub_category=pa.sub_category or "",
+        short_title=pa.short_title or article.title[:50],
+        title=article.title,
+        summary=pa.summary,
+        keywords=pa.keywords,
+        relevance_score=pa.relevance_score,
+        source=article.source,
+    )
 
 
 def search_current_affairs(db: Session, query: str) -> list[CurrentAffairItem]:
@@ -82,8 +108,10 @@ def search_current_affairs(db: Session, query: str) -> list[CurrentAffairItem]:
     for pa, article in rows:
         result.append(
             CurrentAffairItem(
+                id=str(article.id),
                 category=pa.category,
                 sub_category=pa.sub_category or "",
+                short_title=pa.short_title or article.title[:50],
                 title=article.title,
                 summary=pa.summary,
                 keywords=pa.keywords,

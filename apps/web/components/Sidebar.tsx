@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Home, Calendar, LayoutGrid, PenSquare, RotateCcw,
+  Home, Calendar, Archive, LayoutGrid, PenSquare, RotateCcw,
   FileText, Search, Bookmark, User, Star,
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
@@ -11,6 +11,7 @@ import ThemeToggle from "./ThemeToggle";
 const NAV_ITEMS = [
   { label: "Home", href: "/", icon: Home },
   { label: "Today", href: "/today", icon: Calendar },
+  { label: "Archives", href: "/archives", icon: Archive },
   { label: "Categories", href: "/categories", icon: LayoutGrid },
   { label: "Quiz", href: "#", icon: PenSquare, disabled: true },
   { label: "Revision", href: "#", icon: RotateCcw, disabled: true },

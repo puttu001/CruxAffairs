@@ -18,7 +18,7 @@ def generate_quiz(db: Session = Depends(get_db)):
     if not quiz:
         raise HTTPException(
             status_code=404,
-            detail="No articles found for today. Run the ingestion pipeline first.",
+            detail="No articles found for today.",
         )
     return quiz
 

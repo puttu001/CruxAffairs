@@ -1,26 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Bookmark, BookmarkCheck } from "lucide-react";
 import type { CurrentAffairItem } from "@/lib/api";
 import { getImportanceLabel, getReadTime } from "@/lib/api";
+import { useBookmarks } from "@/components/BookmarkProvider";
 
 interface Props {
   item: CurrentAffairItem;
   rank?: number;
   showSummary?: boolean;
-}
-
-function getSavedNews(): CurrentAffairItem[] {
-  if (typeof window === "undefined") return [];
-  try {
-    return JSON.parse(localStorage.getItem("saved-news") || "[]");
-  } catch { return []; }
-}
-
-function isNewsSaved(id: string): boolean {
-  return getSavedNews().some((n) => n.id === id);
 }
 
 export default function ArticleCard({ item, rank, showSummary = false }: Props) {
@@ -29,23 +18,13 @@ export default function ArticleCard({ item, rank, showSummary = false }: Props) 
     importance === "High" ? "tag-high" : importance === "Medium" ? "tag-medium" : "tag-low";
   const readTime = getReadTime(item.summary);
 
-  const [saved, setSaved] = useState(false);
+  const { bookmarkedIds, toggle } = useBookmarks();
+  const saved = bookmarkedIds.has(item.id);
 
-  useEffect(() => {
-    setSaved(isNewsSaved(item.id));
-  }, [item.id]);
-
-  function toggleBookmark(e: React.MouseEvent) {
+  function handleBookmark(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    let list = getSavedNews();
-    if (saved) {
-      list = list.filter((n) => n.id !== item.id);
-    } else {
-      list.push(item);
-    }
-    localStorage.setItem("saved-news", JSON.stringify(list));
-    setSaved(!saved);
+    toggle(item);
   }
 
   return (
@@ -73,7 +52,7 @@ export default function ArticleCard({ item, rank, showSummary = false }: Props) 
             <button
               className={`bookmark-btn ${saved ? "bookmark-active" : ""}`}
               aria-label="Bookmark"
-              onClick={toggleBookmark}
+              onClick={handleBookmark}
             >
               {saved ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
             </button>

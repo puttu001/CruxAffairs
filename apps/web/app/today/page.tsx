@@ -27,7 +27,7 @@ export default async function TodayPage() {
         </div>
       ) : (
         <div className="empty-state">
-          <p>No articles for today yet. Run the ingestion pipeline first.</p>
+          <p>No articles for today yet.</p>
         </div>
       )}
     </>

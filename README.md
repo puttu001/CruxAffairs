@@ -61,16 +61,16 @@ Dashboard Publishing
 
 * Frontend: Next.js / React
 * Backend: Node.js
-* Database: MongoDB / PostgreSQL
+* Database: PostgreSQL(Neon)
 * AI Processing: LLM-based summarization and classification
 * Authentication: JWT / OAuth
-* Deployment: Vercel / AWS
+* Deployment: Microsoft Azure
 
 ## Future Enhancements
 
 * Personalized recommendations
 * AI-generated quizzes
-* Mobile application
+* Mobile application (PWA)
 * Topic tracking
 * Smart revision planner
 * Exam-specific dashboards
@@ -79,7 +79,7 @@ Dashboard Publishing
 
 Transform information overload into structured, exam-ready knowledge and help aspirants prepare smarter.
 
-## Live on
+## Live on {Soon}
 
 [CruxAffairs](https://cruxaffairs.pankajk.dev/)
 

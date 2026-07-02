@@ -40,7 +40,7 @@ export default async function HomePage() {
         </div>
       ) : (
         <div className="empty-state" style={{ marginBottom: "1rem" }}>
-          <p>No articles yet for today. Run the ingestion pipeline first.</p>
+          <p>No articles yet for today.</p>
         </div>
       )}
 

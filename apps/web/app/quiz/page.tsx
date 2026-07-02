@@ -3,24 +3,26 @@
 import { useEffect, useState } from "react";
 import { Bookmark, BookmarkCheck, Trophy, Loader2, AlertCircle, Send } from "lucide-react";
 import { fetchDailyQuiz, type QuizQuestion, type DailyQuiz } from "@/lib/api";
+import { userApi } from "@/lib/user-api";
 
 export default function QuizPage() {
   const [quiz, setQuiz] = useState<DailyQuiz | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selected, setSelected] = useState<Record<number, number>>({});
-  const [bookmarked, setBookmarked] = useState<Set<number>>(new Set());
+  // Maps question text → DB bookmark UUID (present = bookmarked)
+  const [bookmarkMap, setBookmarkMap] = useState<Map<string, string>>(new Map());
   const [started, setStarted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("quiz-bookmarks");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setBookmarked(new Set(parsed.map((q: QuizQuestion) => q.id)));
-      } catch { /* ignore */ }
-    }
+    userApi.getQuizBookmarks()
+      .then((items) => {
+        const map = new Map<string, string>();
+        items.forEach((b) => map.set(b.question_data.question, b.id));
+        setBookmarkMap(map);
+      })
+      .catch(() => {});
   }, []);
 
   async function startQuiz() {
@@ -49,20 +51,26 @@ export default function QuizPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function toggleBookmark(question: QuizQuestion) {
-    const saved = localStorage.getItem("quiz-bookmarks");
-    let bookmarks: QuizQuestion[] = [];
-    try { bookmarks = saved ? JSON.parse(saved) : []; } catch { /* ignore */ }
-
-    const exists = bookmarks.some((q) => q.id === question.id && q.question === question.question);
-    if (exists) {
-      bookmarks = bookmarks.filter((q) => !(q.id === question.id && q.question === question.question));
-      setBookmarked((prev) => { const next = new Set(prev); next.delete(question.id); return next; });
+  async function toggleBookmark(question: QuizQuestion) {
+    const isBookmarked = bookmarkMap.has(question.question);
+    if (isBookmarked) {
+      const dbId = bookmarkMap.get(question.question)!;
+      setBookmarkMap((prev) => { const next = new Map(prev); next.delete(question.question); return next; });
+      try {
+        await userApi.removeQuizBookmark(dbId);
+      } catch {
+        setBookmarkMap((prev) => new Map(prev).set(question.question, dbId));
+      }
     } else {
-      bookmarks.push(question);
-      setBookmarked((prev) => new Set(prev).add(question.id));
+      // Optimistic: use a placeholder until the API responds
+      setBookmarkMap((prev) => new Map(prev).set(question.question, "pending"));
+      try {
+        const res = await userApi.addQuizBookmark(question);
+        setBookmarkMap((prev) => new Map(prev).set(question.question, res.id));
+      } catch {
+        setBookmarkMap((prev) => { const next = new Map(prev); next.delete(question.question); return next; });
+      }
     }
-    localStorage.setItem("quiz-bookmarks", JSON.stringify(bookmarks));
   }
 
   const answered = Object.keys(selected).length;
@@ -129,7 +137,7 @@ export default function QuizPage() {
         {quiz.questions.map((q) => {
           const userPick = selected[q.id];
           const hasAnswer = userPick !== undefined;
-          const isBookmarked = bookmarked.has(q.id);
+          const isBookmarked = bookmarkMap.has(q.question);
 
           return (
             <div key={q.id} className="quiz-card">

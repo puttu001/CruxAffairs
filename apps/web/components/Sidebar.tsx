@@ -7,6 +7,7 @@ import {
   FileText, Search, Bookmark, User, Star,
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import BrandLogo from "./BrandLogo";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/", icon: Home },
@@ -17,8 +18,7 @@ const NAV_ITEMS = [
   { label: "Revision", href: "/revision", icon: RotateCcw },
   { label: "Monthly Notes", href: "#", icon: FileText, disabled: true },
   { label: "Search", href: "/search", icon: Search },
-  { label: "Bookmarks", href: "#", icon: Bookmark, disabled: true },
-  { label: "Profile", href: "#", icon: User, disabled: true },
+  { label: "Profile", href: "/profile", icon: User },
 ];
 
 export default function Sidebar() {
@@ -27,8 +27,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <div className="sidebar-logo-icon">CA</div>
-        <span className="sidebar-logo-text">CruxAffairs</span>
+        <BrandLogo imgHeight={30} textSize="1rem" />
         <div style={{ marginLeft: "auto" }}>
           <ThemeToggle />
         </div>

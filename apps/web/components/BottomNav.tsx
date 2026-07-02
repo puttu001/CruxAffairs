@@ -21,7 +21,7 @@ export default function BottomNav() {
         <Link
           key={item.label}
           href={item.href}
-          className={`bottom-nav-item ${pathname === item.href ? "active" : ""} ${item.disabled ? "disabled" : ""}`}
+          className={`bottom-nav-item ${pathname === item.href ? "active" : ""}`}
         >
           <item.icon size={20} />
           <span>{item.label}</span>

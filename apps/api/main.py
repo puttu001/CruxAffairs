@@ -13,7 +13,10 @@ app = FastAPI(title="CruxAffairs Backend API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:3001"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://crux-affairs.vercel.app",
+    ],
     allow_methods=["GET", "POST", "DELETE"],
     allow_headers=["*"],
 )

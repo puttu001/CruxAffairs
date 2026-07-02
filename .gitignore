@@ -4,6 +4,8 @@ plan.txt
 mvp-plan.md
 run.txt
 competitor-analysis.md
+vm_commands.txt
+.env.backend
 
 ## ─────────────── environments ─────────────────────────────────────────────────────────────
 .env
@@ -22,3 +24,7 @@ venv/
 ## ─────────────── Next.js ─────────────────────────────────────────────────────────────
 apps/web/.next/
 apps/web/node_modules/
+
+
+## ─────────────── Secrets ──────────────────────────────────────────────────────────────
+*.pem

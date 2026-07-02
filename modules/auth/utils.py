@@ -64,7 +64,7 @@ def _smtp_send(to_email: str, subject: str, html_body: str):
         return
 
     msg = MIMEMultipart()
-    msg["From"] = smtp_user
+    msg["From"] = os.environ.get("EMAIL_FROM", smtp_user)
     msg["To"] = to_email
     msg["Subject"] = subject
     msg.attach(MIMEText(html_body, "html"))

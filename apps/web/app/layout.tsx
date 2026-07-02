@@ -9,6 +9,9 @@ import BookmarkProvider from "@/components/BookmarkProvider";
 export const metadata: Metadata = {
   title: "CruxAffairs — Daily Current Affairs",
   description: "AI-powered current affairs for UPSC, SSC, and Banking exam preparation",
+  icons: {
+    icon: "https://res.cloudinary.com/gqwfsunp/image/upload/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

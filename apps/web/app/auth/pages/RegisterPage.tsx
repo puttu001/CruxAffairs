@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
@@ -56,6 +56,13 @@ export default function RegisterPage() {
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Fallback: if the GSI script is already loaded (e.g. navigated here
+  // client-side from the login page), <Script onLoad> won't re-fire.
+  useEffect(() => {
+    if (window.google) initGoogle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function initGoogle() {
     if (!window.google || !googleBtnRef.current) return;

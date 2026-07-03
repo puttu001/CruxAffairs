@@ -16,6 +16,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://crux-affairs.vercel.app",
+        "https://cruxaffairs.pankajk.dev",
     ],
     allow_methods=["GET", "POST", "DELETE"],
     allow_headers=["*"],

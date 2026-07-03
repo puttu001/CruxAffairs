@@ -53,6 +53,13 @@ export default function LoginPage() {
     }
   }, [searchParams]);
 
+  // Fallback: if the GSI script is already loaded (e.g. navigated here
+  // client-side from another auth page), <Script onLoad> won't re-fire.
+  useEffect(() => {
+    if (window.google) initGoogle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function initGoogle() {
     if (!window.google || !googleBtnRef.current) return;
     window.google.accounts.id.initialize({

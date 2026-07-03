@@ -1,0 +1,36 @@
+{
+  "name": "CruxAffairs — Daily Current Affairs",
+  "short_name": "CruxAffairs",
+  "description": "AI-powered current affairs for UPSC, SSC, and Banking exam preparation",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/gqwfsunp/image/upload/w_192,h_192,c_pad,b_transparent/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://res.cloudinary.com/gqwfsunp/image/upload/w_192,h_192,c_pad,b_transparent/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/gqwfsunp/image/upload/w_512,h_512,c_pad,b_transparent/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://res.cloudinary.com/gqwfsunp/image/upload/w_512,h_512,c_pad,b_transparent/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

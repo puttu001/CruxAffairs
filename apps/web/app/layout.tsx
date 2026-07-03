@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import BottomNav from "@/components/BottomNav";
@@ -6,12 +6,26 @@ import MobileHeader from "@/components/MobileHeader";
 import AuthGuard from "@/components/AuthGuard";
 import BookmarkProvider from "@/components/BookmarkProvider";
 
+const LOGO_URL =
+  "https://res.cloudinary.com/gqwfsunp/image/upload/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png";
+
 export const metadata: Metadata = {
   title: "CruxAffairs — Daily Current Affairs",
   description: "AI-powered current affairs for UPSC, SSC, and Banking exam preparation",
+  manifest: "/manifest.json",
   icons: {
-    icon: "https://res.cloudinary.com/gqwfsunp/image/upload/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png",
+    icon: LOGO_URL,
+    apple: LOGO_URL,
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "CruxAffairs",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#6366f1",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

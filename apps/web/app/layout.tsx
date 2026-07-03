@@ -8,6 +8,8 @@ import BookmarkProvider from "@/components/BookmarkProvider";
 
 const LOGO_URL =
   "https://res.cloudinary.com/gqwfsunp/image/upload/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png";
+const APPLE_ICON_URL =
+  "https://res.cloudinary.com/gqwfsunp/image/upload/c_fit,w_130,h_130/c_pad,w_180,h_180,b_white/v1783002468/Crux_affairs_logo-removebg-preview_h6ie72.png";
 
 export const metadata: Metadata = {
   title: "CruxAffairs — Daily Current Affairs",
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: LOGO_URL,
-    apple: LOGO_URL,
+    apple: APPLE_ICON_URL,
   },
   appleWebApp: {
     capable: true,

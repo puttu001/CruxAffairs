@@ -19,8 +19,8 @@ export interface CurrentAffairItem {
   source: string;
 }
 
-async function apiFetch<T>(path: string): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, { cache: "no-store" });
+async function apiFetch<T>(path: string, revalidate = 60): Promise<T> {
+  const res = await fetch(`${API_BASE}${path}`, { next: { revalidate } });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
   return res.json();
 }

@@ -9,7 +9,6 @@ from sqlalchemy.orm import Session
 from modules.news.collectors.pib import fetch_latest_pib
 from modules.news.collectors.rbi import fetch_latest_rbi
 from modules.news.collectors.prs import fetch_latest_prs
-from modules.news.collectors.hindu import fetch_latest_hindu
 from modules.news.schemas import ArticleIn
 from modules.news.repository import save_article
 from modules.ai.processor import process_article
@@ -19,7 +18,6 @@ COLLECTORS = {
     "pib": fetch_latest_pib,
     "rbi": fetch_latest_rbi,
     "prs": fetch_latest_prs,
-    "hindu": fetch_latest_hindu,
 }
 
 

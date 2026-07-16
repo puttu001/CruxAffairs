@@ -1,0 +1,16 @@
+apps/web/
+node_modules/
+.next/
+tests/
+scripts/
+.git/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.backend
+*.pem
+*.md
+plan.txt
+next-step.txt

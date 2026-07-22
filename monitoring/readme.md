@@ -101,6 +101,6 @@ Never commit real secrets into this folder (Grafana admin password, Telegram bot
 - [x] Phase 2 — Prometheus + Pushgateway + Grafana running via Compose
 - [x] Phase 3 — Instrument FastAPI app with `/metrics` (latency, health, DB connection gauge)
 - [x] Phase 4 — Point Prometheus at the App Service `/metrics` endpoint (auth skipped deliberately — see note below)
-- [ ] Phase 5 — Instrument the scheduler to push pipeline run status + OpenAI cost/exhaustion metrics to Pushgateway
+- [x] Phase 5 — Instrument the scheduler to push pipeline run status + OpenAI cost/exhaustion metrics to Pushgateway
 - [ ] Phase 6 — Grafana dashboards
 - [ ] Phase 7 — Grafana alerting (pipeline failure, DB unreachable, OpenAI exhausted)

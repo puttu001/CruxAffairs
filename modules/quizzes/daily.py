@@ -11,7 +11,7 @@ from pathlib import Path
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 
-from modules.ai.llm_client import client
+from modules.ai.llm_client import create_completion
 from modules.quizzes.schemas import DailyQuiz, QuizQuestion
 from modules.current_affairs.service import get_current_affairs
 from database.models.daily_quiz import DailyQuizRecord
@@ -38,7 +38,7 @@ def generate_and_save_quiz(db: Session) -> DailyQuiz | None:
     user_message = "Today's current affairs:\n\n" + "\n".join(lines)
 
     try:
-        response = client.chat.completions.create(
+        response = create_completion(
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},

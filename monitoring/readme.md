@@ -93,12 +93,14 @@ docker compose up -d
 
 Never commit real secrets into this folder (Grafana admin password, Telegram bot tokens, App Service scrape auth token, etc.). Those live in a `.env` file on the VM directly (or a git-ignored local `.env`), not in version control.
 
+**Note:** `/metrics` on the API is currently **unauthenticated** — a deliberate, revisit-later decision. It only exposes request counts/latency/DB-connection status (no secrets or user data), so the risk was judged low for a solo project at this stage. Revisit if this ever needs hardening (more users, more sensitive metrics).
+
 ## Status / build order
 
 - [x] Phase 1 — VM baseline (Docker, swap, firewall)
 - [x] Phase 2 — Prometheus + Pushgateway + Grafana running via Compose
 - [x] Phase 3 — Instrument FastAPI app with `/metrics` (latency, health, DB connection gauge)
-- [ ] Phase 4 — Point Prometheus at the App Service `/metrics` endpoint (with auth)
+- [x] Phase 4 — Point Prometheus at the App Service `/metrics` endpoint (auth skipped deliberately — see note below)
 - [ ] Phase 5 — Instrument the scheduler to push pipeline run status + OpenAI cost/exhaustion metrics to Pushgateway
 - [ ] Phase 6 — Grafana dashboards
 - [ ] Phase 7 — Grafana alerting (pipeline failure, DB unreachable, OpenAI exhausted)

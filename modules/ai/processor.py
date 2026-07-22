@@ -14,7 +14,7 @@ Flow:
 import json
 from pathlib import Path
 
-from modules.ai.llm_client import client
+from modules.ai.llm_client import create_completion
 from modules.ai.schemas import ProcessedArticleOut
 
 PROMPT_PATH = Path(__file__).parent / "prompts" / "summarize.txt"
@@ -29,7 +29,7 @@ def process_article(title: str, content: str) -> ProcessedArticleOut | None:
     user_message = f"TITLE: {title}\n\nCONTENT:\n{content[:4000]}"
 
     try:
-        response = client.chat.completions.create(
+        response = create_completion(
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
